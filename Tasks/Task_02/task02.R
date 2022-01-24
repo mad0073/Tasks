@@ -24,3 +24,48 @@ head(Data)
 beren2 <- Data
 beren3 <- beren2[order(beren2$age),]
 write.csv(beren3, 'beren_new.csv', quote=F, row.names=FALSE)
+Question 1: Hypothesis I is inappropriate because "the amount Beren eats in a day" is not defined enough. Hypothesis II is inappropriate because it is not predicting a specific relationship between the two events.
+Feeds <- which(beren3$event == "bottle")
+avgMilk <- mean(beren3$value[Feeds])
+avgMilk
+avgMilk <- tapply(beren3$value[Feeds], beren3$age[Feeds], mean)
+varFeed <- tapply(beren3$value[Feeds], beren3$age[Feeds], var)
+totalFeed <- tapply(beren3$value[Feeds], beren3$age[Feeds], sum)
+numFeeds <- tapply(beren3$value[Feeds], beren3$age[Feeds], length)
+cor(beren3$value[Feeds], beren3$age[Feeds])
+cor.test(beren3$value[Feeds], beren3$age[Feeds])
+berenCor <- cor.test(beren3$value[Feeds], beren3$age[Feeds])
+summary(berenCor)
+berenANOVA <- aov(beren3$value[Feeds] ~ beren3$caregiver[Feeds])
+boxplot(beren3$value[Feeds] ~ beren3$caregiver[Feeds], xlab= "who gave the bottle", ylab = "amount of milk consumed (oz)")
+?par
+par(las=1, mar=c(5, 5, 1, 1), mgp=c(2, 0.5, 0), tck=-0.01)
+plot(as.numeric(names(totalFeed)), totalFeed, type="b", pch=16, xlab="age in days", ylab="ounces of milk")
+abline(h=mean(totalFeed), lty=2, col='red')
+pdf("r02b-totalMilkByDay.pdf", height = 4, width = 4)
+plot(as.numeric(names(totalFeed)), totalFeed, type="b", pch=16, xlab="age in days", ylab="ounces of milk")
+abline(h=mean(totalFeed), lty=2, col='red')
+dev.off()
+Question 2: The data is impossible to interpret beacuse the x-axis intervals are too far of jumps between each other. The graph is all over the place and hard to read accurately.
+source("http://jonsmitchell.com/code/plotFxn02b.R")
+Hypothesis: Beren's height has increased over time in a positive correlation.
+unique(beren3$event)
+which(beren3$event == "trait_length")
+Height <- which(beren3$event == "trait_length")
+avgHeight <- mean(beren3$value[Height])
+avgGrowth <- tapply(beren3$value[Height], beren3$age[Height], mean)
+varGrowth <- tapply(beren3$value[Height], beren3$age[Height], var)
+numGrowth <- tapply(beren3$value[Height], beren3$age[Height], length)
+cor(beren3$value[Height], beren3$age[Height])
+cor.test(beren3$value[Height], beren3$age[Height])
+berenHeightcor <- cor.test(beren3$value[Height], beren3$age[Height])
+summary(berenHeightcor)
+aov(beren3$value[Height], beren3$age[Height])
+which(beren3$event == "nap")
+Naps <- which(beren3$event == "nap")
+beren4 <- beren3[Naps,]
+head(beren4)
+beren4[,5:6]
+startID <- apply(beren4, 1, function(x) paste (x[5:6], collapse = '-'))
+endID <- apply(beren4, 1, function(x) paste (x[7:8], collapse = '-'))
+beren4[, 5] * 60
