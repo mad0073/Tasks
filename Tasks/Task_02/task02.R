@@ -68,4 +68,3 @@ head(beren4)
 beren4[,5:6]
 startID <- apply(beren4, 1, function(x) paste (x[5:6], collapse = '-'))
 endID <- apply(beren4, 1, function(x) paste (x[7:8], collapse = '-'))
-beren4[, 5] * 60
