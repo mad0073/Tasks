@@ -59,3 +59,9 @@ Line2 <- lm(tExt ~ Samples + 0)
 Line2
 abline(Line2)
 summary(lm.fit(Line), robust=T)
+library(MASS)
+robust <- rlm(tExt ~ Samples)
+robust
+summary(robust)
+coef(robust)
+abline(robust)
