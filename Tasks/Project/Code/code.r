@@ -15,9 +15,9 @@ Dat2 <- Dat
 rownames(Dat2) <- Dat[,1]
 Dat2 <- Dat2[InBoth,]
 Dat2 <- Dat2[,-1]
-Dat3 <- as.matrix(Dat2)
+Dat3 <- as.matrix(Dat2) 
 
 Obj <- phyl.vcv(Dat3, vcv(Phy), 1)
 PearsonR <- cov2cor(Obj$R)[1,2]
 
-phylomorphospace(Phy, Dat3, label="off")
+phylomorphospace(Phy, Dat3, label="off", xlab="Wing Length (mm)", ylab="Tail Length (mm)")

@@ -5,6 +5,7 @@ library("phytools")
 trees <- vector(mode = "list", length = 1)
 births <- c()
 Fractions <- c()
+ABL <- c()
 ?pbtree
 for (i in 1:100) {
   births[i] <- runif(1)
